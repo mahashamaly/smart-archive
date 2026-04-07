@@ -1,0 +1,3647 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "mainCategory": "كشوفات ومراسلات وكتب",
+      "subCategories": [
+        {
+          "id": "1-1",
+          "name": "كشوفات ومراسلات وكتب",
+          "fileClassifications": [
+            {
+              "id": "1-1-1",
+              "name": "مراسلات داخلية",
+              "fields": [
+                {
+                  "id": "correspondence_date",
+                  "label": "تاريخ المراسلة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "correspondence_title",
+                  "label": "عنوان المراسلة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "correspondence_number",
+                  "label": "رقم المراسلة",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "1-1-2",
+              "name": "مراسلات خارجية",
+              "fields": [
+                {
+                  "id": "correspondence_date",
+                  "label": "تاريخ المراسلة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "correspondence_title",
+                  "label": "عنوان المراسلة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "correspondence_number",
+                  "label": "رقم المراسلة",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "1-1-3",
+              "name": "كتاب",
+              "fields": [
+                {
+                  "id": "book_date",
+                  "label": "تاريخ الكتاب",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "book_number",
+                  "label": "رقم الكتاب",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "book_title",
+                  "label": "عنوان الكتاب",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "1-1-4",
+              "name": "كشف",
+              "fields": [
+                {
+                  "id": "statement_title",
+                  "label": "عنوان الكشف",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "statement_number",
+                  "label": "رقم الكشف",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "statement_date",
+                  "label": "تاريخ الكشف",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "mainCategory": "التقييم",
+      "subCategories": [
+        {
+          "id": "2-1",
+          "name": "كتاب شكر وتقدير",
+          "fileClassifications": [
+            {
+              "id": "2-1-1",
+              "name": "كتاب شكر وتقدير",
+              "fields": [
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "appreciation_level",
+                  "label": "التقدير(نتيجة التقيم)",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "book_date",
+                  "label": "تاريخ الكتاب",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "reason",
+                  "label": "سبب الكتاب",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2-2",
+          "name": "تقيم سنوي",
+          "fileClassifications": [
+            {
+              "id": "2-2-1",
+              "name": "تقيم سنوي",
+              "fields": [
+                {
+                  "id": "evaluation_year",
+                  "label": "سنة التقييم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "annual_evaluation_result",
+                  "label": "نتيجة التقيم السنوى للموظف",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "mainCategory": "العقوبات",
+      "subCategories": [
+        {
+          "id": "3-1",
+          "name": "نوع العقوبة",
+          "fileClassifications": [
+            {
+              "id": "3-1-1",
+              "name": "تنبيه",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-2",
+              "name": "لفت نظر",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-3",
+              "name": "إنذار",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-4",
+              "name": "إنذار بالفصل",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-5",
+              "name": "إنذار نهائي بالفصل",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-6",
+              "name": "الحرمان من العلاوة الدورية",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-7",
+              "name": "الحرمان من الترقية",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-8",
+              "name": "تخفيض الدرجة",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-9",
+              "name": "خصم أيام بدون راتب",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-10",
+              "name": "الوقوف عن العمل لمدة لا تتجاوز 6 أشهر",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة البقاء على العقوبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-11",
+              "name": "الإحالة إلى المعاش",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "retirement_date",
+                  "label": "تاريخ الإحالة",
+                  "type": "date",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-12",
+              "name": "إنهاء خدمة بسبب التغيب",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_number",
+                  "label": "رقم العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "termination_due_to_absence_date",
+                  "label": "تاريخ إنهاء الخدمة بسبب التغيب",
+                  "type": "date",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "3-1-13",
+              "name": "الفصل عن الخدمة",
+              "fields": [
+                {
+                  "id": "penalty_date",
+                  "label": "تاريخ العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "penalty_reason",
+                  "label": "سبب العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "termination_date",
+                  "label": "تاريخ الفصل عن الخدمة",
+                  "type": "date",
+                  "required": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "mainCategory": "الملف الصحي",
+      "subCategories": [
+        {
+          "id": "4-1",
+          "name": "إصابة عمل",
+          "fileClassifications": [
+            {
+              "id": "4-1-1",
+              "name": "تقرير تأمين صحي",
+              "fields": [
+                {
+                  "id": "report_number",
+                  "label": "تقرير تأمين صحى",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "4-1-2",
+              "name": "تقرير طبي",
+              "fields": [
+                {
+                  "id": "medical_diagnosis",
+                  "label": "التشخيص الطبي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "disease_date",
+                  "label": "تاريخ المرض",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "doctor_recommendation",
+                  "label": "توصية الطبيب",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "hospital_name",
+                  "label": "اسم المستشفى",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "4-1-3",
+              "name": "إصابة عمل",
+              "fields": [
+                {
+                  "id": "injury_type",
+                  "label": "نوع الإصابة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "injury_date",
+                  "label": "تاريخ الإصابة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "disability_percentage",
+                  "label": "نسبة العجز",
+                  "type": "number",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4-2",
+          "name": "قرار قمسيون طبي",
+          "fileClassifications": [
+            {
+              "id": "4-2-1",
+              "name": "قرار قمسيون طبي",
+              "fields": [
+                {
+                  "id": "disease_name",
+                  "label": "اسم المرض",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "disease_type",
+                  "label": "نوع المرض",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "disease_date",
+                  "label": "تاريخ المرض",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "disability_percentage",
+                  "label": "نسبة العجز الطبي",
+                  "type": "number",
+                  "required": true
+                },
+                {
+                  "id": "commission_approved_duration",
+                  "label": "المدة المعتمدة من اللجنة",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "mainCategory": "القرارات والأوامر الإدارية",
+      "subCategories": [
+        {
+          "id": "5-1",
+          "name": "قرارات اللجان",
+          "fileClassifications": [
+            {
+              "id": "5-1-1",
+              "name": "مكاتبات",
+              "fields": [
+                {
+                  "id": "document_title",
+                  "label": "عنوان الوثيقة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "entity",
+                  "label": "الجهة",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-1-2",
+              "name": "قرارات",
+              "fields": [
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_date",
+                  "label": "تاريخ القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "department",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "section",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "grade_allowance",
+                  "label": "درجة/العلاوة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "5-1-3",
+              "name": "لجنة مؤقتة",
+              "fields": [
+                {
+                  "id": "committee_formation_number",
+                  "label": "رقم قرار تشكيل لجنة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "committee_tasks",
+                  "label": "مهام اللجنة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "committee_date",
+                  "label": "تاريخ",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "committee_title",
+                  "label": "عنوان اللجنة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "membership_type",
+                  "label": "نوع العضوية",
+                  "type": "dropdown",
+                  "required": true,
+                  "options": [
+                    "رئيساً",
+                    "عضواً"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "5-1-4",
+              "name": "لجنة دائمة",
+              "fields": [
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "committee_title",
+                  "label": "عنوان اللجنة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "committee_tasks",
+                  "label": "مهام اللجنة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "committee_date",
+                  "label": "تاريخ",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "committee_formation_number",
+                  "label": "رقم قرار تشكيل لجنة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "membership_type",
+                  "label": "نوع العضوية",
+                  "type": "dropdown",
+                  "required": true,
+                  "options": [
+                    "رئيساً",
+                    "عضواً"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5-2",
+          "name": "أمر إداري",
+          "fileClassifications": [
+            {
+              "id": "5-2-1",
+              "name": "أمر إداري"
+            },
+            {
+              "id": "5-2-2",
+              "name": "تكليف موظف",
+              "fields": [
+                {
+                  "id": "order_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "order_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "division",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "order_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "assignment_start_date",
+                  "label": "تاريخ بداية الانتداب",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-2-3",
+              "name": "إنهاء انتداب موظف",
+              "fields": [
+                {
+                  "id": "order_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "order_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "division",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "order_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "assignment_end_date",
+                  "label": "تاريخ نهاية الانتداب",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-2-4",
+              "name": "انتداب",
+              "fields": [
+                {
+                  "id": "order_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "order_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "division",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "order_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "assignment_start_date",
+                  "label": "تاريخ بداية الانتداب",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-2-5",
+              "name": "نقل موظف",
+              "fields": [
+                {
+                  "id": "order_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "order_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "division",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "order_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-2-6",
+              "name": "نقل متقاعد",
+              "fields": [
+                {
+                  "id": "order_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "order_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "order_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "division",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5-3",
+          "name": "قرار رئيس البلدية",
+          "fileClassifications": [
+            {
+              "id": "5-3-1",
+              "name": "قرار ترقية",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "grade",
+                  "label": "الدرجة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_date",
+                  "label": "تاريخ القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "grade_allowance",
+                  "label": "علاوة الدرجة",
+                  "type": "number",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-2",
+              "name": "قرار صرف مكافأة",
+              "fields": [
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "allowance_amount",
+                  "label": "مبلغ المكافأة",
+                  "type": "number",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-3",
+              "name": "قرار صرف بدل عجز مالي",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+
+                {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                 {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+               
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                
+                
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "payment_amount",
+                  "label": "مبلغ الصرف",
+                  "type": "number",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-4",
+              "name": "قرار تكليف",
+              "fields": [
+
+                 {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                 {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                 {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                  {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                 {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+               
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+               
+                {
+            "id": "start_date",
+            "label": "تاريخ بداية التكليف",
+            "type": "date",
+           "required": true
+               }
+              ]
+            },
+            {
+              "id": "5-3-5",
+              "name": "قرار صرف علاوة مؤهل علمي",
+              "fields": [
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "بداية القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "specialization",
+                  "label": "التخصص",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "qualification_allowance",
+                  "label": "علاوة المؤهل العلمي",
+                  "type": "number",
+                  "required": true
+                },
+                {
+                  "id": "current_grade",
+                  "label": "الدرجة الحالية",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "remaining_allowance",
+                  "label": "العلاوة المتبقية",
+                  "type": "number",
+                  "required": true
+                },
+                {
+                  "id": "salary_purpose_allowance",
+                  "label": "علاوة لأغراض الراتب",
+                  "type": "number",
+                  "required": true
+                },
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "actual_allowance",
+                  "label": "العلاوة الفعلية",
+                  "type": "number",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "qualification_grade",
+                  "label": "درجة المؤهل العلمي",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-6",
+              "name": "قرار محو العقوبات",
+              "fields": [
+                {
+                  "id": "end_of_penalty",
+                  "label": "نهاية العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_type",
+                  "label": "نوع العقوبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "penalty_start_date",
+                  "label": "تاريخ بداية العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "penalty_end_date",
+                  "label": "تاريخ نهاية العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "penalty_duration",
+                  "label": "مدة العقوبة",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-7",
+              "name": "قرار إنهاء خدمة",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "termination_reason",
+                  "label": "سبب إنهاء الخدمة",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-8",
+              "name": "قرار تحويل الموظفين من بند المقاول إلى عقد عمل مؤقت",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "contract_type",
+                  "label": "طبيعة المقاولة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "allowance",
+                  "label": "البدل المالي",
+                  "type": "number",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-9",
+              "name": "قرار إنهاء التعاقد",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "termination_reason",
+                  "label": "سبب نهاية التعاقد",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_date",
+                  "label": "تاريخ القرار",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-10",
+              "name": "قرار تعاقد",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "end_date",
+                  "label": "تاريخ انتهاء القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "salary",
+                  "label": "الراتب",
+                  "type": "number",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-11",
+              "name": "قرار إعادة موظف للعمل",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-12",
+              "name": "قرار تعديل طبيعة العمل الخاصة بالموظفين",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "grade",
+                  "label": "الدرجة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "category",
+                  "label": "الفئة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "work_nature",
+                  "label": "طبيعة العمل",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-13",
+              "name": "قرار تعديل المسمى الوظيفي",
+              "fields": [
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "new_job_title",
+                  "label": "المسمى الوظيفي الجديد",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "decision_date",
+                  "label": "تاريخ القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "old_job_title",
+                  "label": "المسمى الوظيفي القديم",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-14",
+              "name": "قرار تجديد العقود",
+              "fields": [
+                {
+                  "id": "end_of_penalty",
+                  "label": "نهاية العقوبة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "renewal_start_date",
+                  "label": "تاريخ بداية التجديد",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_date",
+                  "label": "تاريخ القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "renewal_end_date",
+                  "label": "تاريخ نهاية التجديد",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-15",
+              "name": "قرار إيقاف موظف عن العمل",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "suspension_reason",
+                  "label": "سبب الإيقاف",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "suspension_duration",
+                  "label": "مدة الإيقاف",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_duration",
+                  "label": "مدة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_date",
+                  "label": "تاريخ القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-16",
+              "name": "قرار انتداب موظف",
+              "fields": [
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "assignment_type",
+                  "label": "نوع الانتداب",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية الانتداب",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-17",
+              "name": "قرار نقل",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "from_division",
+                  "label": "الدائرة المنقول منها",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "to_division",
+                  "label": "الدائرة المنقول إليها",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+           
+            {
+              "id": "5-3-18",
+              "name": "قرار تسكين موظف",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "grade",
+                  "label": "الدرجة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "category",
+                  "label": "الفئة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "work_nature",
+                  "label": "طبيعة العمل",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "5-3-19",
+              "name": "قرار تثبيت",
+              "fields": [
+                {
+                  "id": "decision_number",
+                  "label": "رقم القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_title",
+                  "label": "عنوان القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "appointment_date",
+                  "label": "تاريخ التعيين",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "القسم",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "section",
+                  "label": "الشعبة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "grade",
+                  "label": "الدرجة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "job_category",
+                  "label": "الفئة ",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "work_nature",
+                  "label": "طبيعة العمل",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "decision_year",
+                  "label": "سنة القرار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "division",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "start_date",
+                  "label": "تاريخ بداية القرار",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "mainCategory": "السيرة الذاتية",
+      "subCategories": [
+        {
+          "id": "6-1",
+          "name": "سيرة ذاتية",
+          "fileClassifications": [
+            {
+              "id": "6-1-1",
+              "name": "كشوفات",
+              "fields": [
+                {
+                  "id": "document_title",
+                  "label": "عنوان الوثيقة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "6-1-2",
+              "name": "سيرة ذاتية",
+              "fields": []
+            }
+          ]
+        },
+        {
+          "id": "6-2",
+          "name": "عقد عمل",
+          "fileClassifications": [
+            {
+              "id": "6-2-1",
+              "name": "عقد عمل",
+              "fields": [
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "contract_end_date",
+                  "label": "تاريخ انتهاء العقد",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "specialization",
+                  "label": "التخصص",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "institution",
+                  "label": "المؤسسة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6-3",
+          "name": "شهادة عضوية",
+          "fileClassifications": [
+            {
+              "id": "6-3-1",
+              "name": "شهادة عضوية النقابات المهنية",
+              "fields": [
+                {
+                  "id": "membership_number",
+                  "label": "رقم العضوية",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "union_name",
+                  "label": "اسم النقابة",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6-4",
+          "name": "شهادة خبرة",
+          "fileClassifications": [
+            {
+              "id": "6-4-1",
+              "name": "شهادة خبرة",
+              "fields": [
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي للعمل",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "work_start_date",
+                  "label": "تاريخ بداية العمل",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "institution_name",
+                  "label": "اسم المؤسسة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "work_field",
+                  "label": "مجال العمل",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "work_end_date",
+                  "label": "تاريخ نهاية العمل",
+                  "type": "date",
+                  "required": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6-5",
+          "name": "شهادة تدريب",
+          "fileClassifications": [
+            {
+              "id": "6-5-1",
+              "name": "شهادة دورة تدريبية",
+              "fields": [
+                {
+                  "id": "training_institution",
+                  "label": "المؤسسة التدريبية",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "course_hours",
+                  "label": "عدد ساعات الدورة",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "course_specialization",
+                  "label": "تخصص الدورة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "course_type",
+                  "label": "نوع الدورة",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "course_name",
+                  "label": "اسم الدورة التدريبية",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "course_date",
+                  "label": "تاريخ الدورة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "accreditation_type",
+                  "label": "نوع الاعتماد",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6-6",
+          "name": "شهادة مدرب",
+          "fileClassifications": [
+            {
+              "id": "6-6-1",
+              "name": "شهادة مدرب",
+              "fields": [
+                {
+                  "id": "course_name",
+                  "label": "اسم الدورة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "course_date",
+                  "label": "تاريخ الدورة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "mainCategory": "إجراءات التوظيف",
+      "subCategories": [
+        {
+          "id": "7-1",
+          "name": "عملية التثبيت",
+          "fileClassifications": [
+            {
+              "id": "7-1-1",
+              "name": "تثبيت موظفين",
+              "fields": [
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "7-1-2",
+              "name": "توصية بشأن مستخدم في الخدمة ببلدية غزة",
+              "fields": [
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "7-1-3",
+              "name": "أوراق ما قبل التثبيت",
+              "fields": [
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7-2",
+          "name": "عملية التعاقد",
+          "fileClassifications": [
+            {
+              "id": "7-2-1",
+              "name": "عقد العمل",
+              "fields": [
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "contract_end_date",
+                  "label": "تاريخ انتهاء العقد",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "specialization",
+                  "label": "التخصص",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "institution",
+                  "label": "المؤسسة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "contract_document_date",
+                  "label": "تاريخ وثيقة العقد",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "7-2-2",
+              "name": "توصيات لجنة المقابلة للعمل",
+              "fields": [
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "7-2-3",
+              "name": "نتائج المقابلات",
+              "fields": [
+                {
+                  "id": "minutes_date",
+                  "label": "تاريخ المحضر",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "percentage",
+                  "label": "النسبة",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "ranking",
+                  "label": "الترتيب",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "7-2-4",
+              "name": "نتائج امتحان المتقدمين",
+              "fields": [
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "7-2-5",
+              "name": "قرار",
+              "fields": [
+                {
+                  "id": "decision_date",
+                  "label": "تاريخ القرار",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "7-2-6",
+              "name": "إعلان وظيفة",
+              "fields": [
+                {
+                  "id": "announcement_type",
+                  "label": "نوع الإعلان",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "announcement_end_date",
+                  "label": "تاريخ نهاية الإعلان",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "department",
+                  "label": "الدائرة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "announcement_date",
+                  "label": "تاريخ الإعلان",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "job_title",
+                  "label": "المسمى الوظيفي للإعلان",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "mainCategory": "الشهادات العلمية",
+      "subCategories": [
+        {
+          "id": "8-1",
+          "name": "شهادة توجيهي",
+          "fileClassifications": [
+            {
+              "id": "8-1-1",
+              "name": "شهادة التوجيهي",
+              "fields": [
+                {
+                  "id": "certificate_date",
+                  "label": "تاريخ الشهادة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "average",
+                  "label": "المعدل",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "city",
+                  "label": "المدينة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "country",
+                  "label": "الدولة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "graduation_year",
+                  "label": "سنة التخرج",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "branch",
+                  "label": "الفرع",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "has_high_certification",
+                  "label": "هل يوجد تصديق عالي",
+                  "type": "dropdown",
+                  "required": true,
+                  "options": [
+                    "نعم",
+                    "لا"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8-2",
+          "name": "شهادة جامعية",
+          "fileClassifications": [
+            {
+              "id": "8-2-1",
+              "name": "الشهادة الجامعية",
+              "fields": [
+                {
+                  "id": "qualification",
+                  "label": "المؤهل العلمي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "university_name",
+                  "label": "اسم الجامعة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "degree",
+                  "label": "الدرجة العلمية",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "graduation_year",
+                  "label": "سنة التخرج",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "major",
+                  "label": "التخصص العام",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "country",
+                  "label": "الدولة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "city",
+                  "label": "المدينة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "grade",
+                  "label": "التقدير",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "minor",
+                  "label": "التخصص الفرعي",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "mainCategory": "الأوراق الثبوتية والشخصية",
+      "subCategories": [
+        {
+          "id": "9-1",
+          "name": "عائلي",
+          "fileClassifications": [
+            {
+              "id": "9-1-1",
+              "name": "شهادة وفاة",
+              "fields": [
+                {
+                  "id": "death_date",
+                  "label": "تاريخ الوفاة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "deceased_id",
+                  "label": "رقم هوية المتوفى",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "relationship",
+                  "label": "صلة القرابة",
+                  "type": "dropdown",
+                  "required": true,
+                  "options": [
+                    "زوج",
+                    "زوجة",
+                    "ابن",
+                    "ابنة",
+                    "نفس الموظف"
+                  ]
+                },
+                {
+                  "id": "deceased_name",
+                  "label": "اسم المتوفى",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-1-2",
+              "name": "تعديل حالة اجتماعية",
+              "fields": [
+                {
+                  "id": "id_number",
+                  "label": "رقم الهوية",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "relationship",
+                  "label": "صلة القرابة",
+                  "type": "dropdown",
+                  "required": true,
+                  "options": [
+                    "زوج",
+                    "زوجة",
+                    "ابن",
+                    "ابنة",
+                    "نفس الموظف"
+                  ]
+                },
+                {
+                  "id": "date",
+                  "label": "التاريخ",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "name",
+                  "label": "الاسم",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-1-3",
+              "name": "شهادة قيد جامعة",
+              "fields": [
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "child_id",
+                  "label": "رقم هوية الابن",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "child_name",
+                  "label": "اسم الابن",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "university_name",
+                  "label": "اسم الجامعة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "academic_year",
+                  "label": "السنة الدراسية",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "country",
+                  "label": "البلد",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-1-4",
+              "name": "شهادات ميلاد الأبناء",
+              "fields": [
+                {
+                  "id": "child_id",
+                  "label": "رقم هوية الابن",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "relationship",
+                  "label": "صلة القرابة",
+                  "type": "dropdown",
+                  "required": true,
+                  "options": [
+                    "ابن",
+                    "ابنة"
+                  ]
+                },
+                {
+                  "id": "child_birth_date",
+                  "label": "تاريخ ميلاد الابن",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9-2",
+          "name": "شخصي",
+          "fileClassifications": [
+            {
+              "id": "9-2-1",
+              "name": "عقد إيجار",
+              "fields": [
+                {
+                  "id": "tenant_name",
+                  "label": "اسم المستأجر",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "city",
+                  "label": "المدينة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "neighborhood",
+                  "label": "الحي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "contract_type",
+                  "label": "نوع العقد",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "rental_period",
+                  "label": "مدة الإيجار",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "rental_start_date",
+                  "label": "تاريخ بداية الإيجار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "rental_end_date",
+                  "label": "تاريخ نهاية الإيجار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "building_number",
+                  "label": "رقم المبنى",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "street_number",
+                  "label": "رقم الشارع",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "rental_amount",
+                  "label": "مبلغ الإيجار",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-2-2",
+              "name": "جواز سفر",
+              "fields": [
+                {
+                  "id": "employee_id",
+                  "label": "رقم هوية الموظف",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "passport_number",
+                  "label": "رقم جواز السفر",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-2-3",
+              "name": "فاتورة المياه",
+              "fields": [
+                {
+                  "id": "account_number",
+                  "label": "رقم الحساب",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "subscriber_name",
+                  "label": "اسم المشترك",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "beneficiary_name",
+                  "label": "اسم المنتفع",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "street_number",
+                  "label": "رقم الشارع",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "building_number",
+                  "label": "رقم المبنى",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "unit_number",
+                  "label": "رقم الوحدة",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "9-2-4",
+              "name": "إقرار تغيير عنوان السكن",
+              "fields": [
+                {
+                  "id": "governorate",
+                  "label": "المحافظة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "neighborhood",
+                  "label": "الحي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "street_name",
+                  "label": "اسم الشارع",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "building_number",
+                  "label": "رقم المبنى",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "street_number",
+                  "label": "رقم الشارع",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "nearest_landmark",
+                  "label": "أقرب معلم",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+           
+            {
+              "id": "9-2-6",
+              "name": "أمر بالإفراج",
+              "fields": [
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "release_date",
+                  "label": "تاريخ الإفراج",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "detention_period",
+                  "label": "مدة الحبس",
+                  "type": "text",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-2-7",
+              "name": "شهادة حسن سير وسلوك",
+              "fields": [
+                {
+                  "id": "issue_date",
+                  "label": "تاريخ الإصدار",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-2-8",
+              "name": "شهادة عدم محكومية",
+              "fields": [
+                {
+                  "id": "issue_date",
+                  "label": "تاريخ الإصدار",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "expiry_date",
+                  "label": "تاريخ انتهاء السريان",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-2-9",
+              "name": "شهادة طلاق",
+              "fields": [
+                {
+                  "id": "wife_name",
+                  "label": "اسم الزوجة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "wife_id",
+                  "label": "رقم هوية الزوجة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "divorce_date",
+                  "label": "تاريخ الطلاق",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-2-10",
+              "name": "بيانات البنك",
+              "fields": [
+                {
+                  "id": "account_number",
+                  "label": "رقم الحساب",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "bank_name",
+                  "label": "اسم البنك",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "iban",
+                  "label": "الآيبان",
+                  "type": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "9-2-11",
+              "name": "رخصة قيادة",
+              "fields": [
+                {
+                  "id": "license_number",
+                  "label": "رقم رخصة القيادة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "license_issue_date",
+                  "label": "تاريخ إصدار الرخصة",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "license_expiry_date",
+                  "label": "تاريخ انتهاء الرخصة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-2-12",
+              "name": "بطاقة عضوية النقابة",
+              "fields": [
+                {
+                  "id": "union_name",
+                  "label": "اسم النقابة",
+                  "type": "dropdown",
+                  "required": true,
+                  "options": [
+                    "نقابة المحاسبين",
+                    "نقابة المهندسين"
+                  ]
+                },
+                {
+                  "id": "membership_number",
+                  "label": "رقم العضوية",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "issue_date",
+                  "label": "تاريخ إصدارها",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-2-13",
+              "name": "عقد زواج",
+              "fields": [
+                {
+                  "id": "wife_name",
+                  "label": "اسم الزوجة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "wife_id",
+                  "label": "رقم هوية الزوجة",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "marriage_date",
+                  "label": "تاريخ عقد الزواج",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "husband_id",
+                  "label": "رقم هوية الزوج",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "husband_name",
+                  "label": "اسم الزوج",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "relationship",
+                  "label": "صلة القرابة",
+                  "type": "dropdown",
+                  "required": true,
+                  "options": [
+                    "زوج",
+                    "زوجة",
+                    "ابن",
+                    "ابنة",
+                    "نفس الموظف"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "9-2-14",
+              "name": "شهادة ميلاد",
+              "fields": [
+                {
+                  "id": "document_date",
+                  "label": "تاريخ الوثيقة",
+                  "type": "date",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "9-2-15",
+              "name": "صورة الهوية",
+              "fields": [
+                {
+                  "id": "employee_id",
+                  "label": "رقم هوية الموظف",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "employee_full_name",
+                  "label": "اسم الموظف رباعي",
+                  "type": "text",
+                  "required": true
+                },
+                {
+                  "id": "wife_full_name",
+                  "label": "اسم الزوجة رباعي",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "wife_id",
+                  "label": "رقم هوية الزوجة",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "children_count",
+                  "label": "عدد الأبناء",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "id_issue_date",
+                  "label": "تاريخ إصدار الهوية",
+                  "type": "date",
+                  "required": true
+                },
+                {
+                  "id": "child1_id",
+                  "label": "رقم هوية الابن الأول",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child1_name",
+                  "label": "اسم الابن الأول",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child1_birth_date",
+                  "label": "تاريخ ميلاد الابن الأول",
+                  "type": "date",
+                  "required": false
+                },
+                {
+                  "id": "child1_gender",
+                  "label": "نوع جنس الابن الأول",
+                  "type": "dropdown",
+                  "required": false,
+                  "options": [
+                    "ذكر",
+                    "أنثى"
+                  ]
+                },
+                {
+                  "id": "child2_id",
+                  "label": "رقم هوية الابن الثاني",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child2_name",
+                  "label": "اسم الابن الثاني",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child2_birth_date",
+                  "label": "تاريخ ميلاد الابن الثاني",
+                  "type": "date",
+                  "required": false
+                },
+                {
+                  "id": "child2_gender",
+                  "label": "نوع جنس الابن الثاني",
+                  "type": "dropdown",
+                  "required": false,
+                  "options": [
+                    "ذكر",
+                    "أنثى"
+                  ]
+                },
+                {
+                  "id": "child3_id",
+                  "label": "رقم هوية الابن الثالث",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child3_name",
+                  "label": "اسم الابن الثالث",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child3_birth_date",
+                  "label": "تاريخ ميلاد الابن الثالث",
+                  "type": "date",
+                  "required": false
+                },
+                {
+                  "id": "child3_gender",
+                  "label": "نوع جنس الابن الثالث",
+                  "type": "dropdown",
+                  "required": false,
+                  "options": [
+                    "ذكر",
+                    "أنثى"
+                  ]
+                },
+                {
+                  "id": "child4_id",
+                  "label": "رقم هوية الابن الرابع",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child4_name",
+                  "label": "اسم الابن الرابع",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child4_birth_date",
+                  "label": "تاريخ ميلاد الابن الرابع",
+                  "type": "date",
+                  "required": false
+                },
+                {
+                  "id": "child4_gender",
+                  "label": "نوع جنس الابن الرابع",
+                  "type": "dropdown",
+                  "required": false,
+                  "options": [
+                    "ذكر",
+                    "أنثى"
+                  ]
+                },
+                {
+                  "id": "child5_id",
+                  "label": "رقم هوية الابن الخامس",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child5_name",
+                  "label": "اسم الابن الخامس",
+                  "type": "text",
+                  "required": false
+                },
+                {
+                  "id": "child5_birth_date",
+                  "label": "تاريخ ميلاد الابن الخامس",
+                  "type": "date",
+                  "required": false
+                },
+                {
+                  "id": "child5_gender",
+                  "label": "نوع جنس الابن الخامس",
+                  "type": "dropdown",
+                  "required": false,
+                  "options": [
+                    "ذكر",
+                    "أنثى"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
