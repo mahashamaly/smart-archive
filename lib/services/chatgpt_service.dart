@@ -4,14 +4,16 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:pdfx/pdfx.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'ai_service.dart';
 import 'ai_prompt_bank.dart';
 
 class ChatGPTService implements AIService {
   // المفتاح الذي قمتي بلصقه
-  final String _apiKey = 'proj_6HGRv6yPVwH7GollfmMD2sCK'; 
+  final String _apiKey = dotenv.env['CHATGPT_API_KEY'] ?? ''; 
 
   @override
+  //استقبال الملفات
   Future<Map<String, dynamic>> processDocument(
     List<String> filePaths, {
     String? targetEmployeeId,
@@ -30,7 +32,7 @@ class ChatGPTService implements AIService {
       عليك إرجاع النص بصيغة JSON صافي وقم ببدء الرد برمز `{` مباشرة وانتهي برمز `}`.
       ممنوع منعاً باتاً كتابة أي كلمة ترحيبية، أو أي شرح، أو استخدام علامات Markdown مثل ```json.
       """;
-
+//دمج البرومبت الأساسي مع التعليمة الصارمة
       final finalPrompt = '$basePrompt\n$chatGptStrictInstruction';
 
       // 3. تجهيز محتوى الرسالة (النص + الصور المشفرة)
@@ -40,10 +42,12 @@ class ChatGPTService implements AIService {
           "text": finalPrompt
         }
       ];
-
+//يحول كل صفحة PDF إلى صورة JPEG
+//يشفر الصورة إلى Base64 → لكي يستطيع ChatGPT قراءتها كصورة
       for (var path in filePaths) {
         if (path.toLowerCase().endsWith('.pdf')) {
           final pdfImages = await _convertPdfToJpegPages(path);
+          //تشفير الصور إلى Base64
           for (final pageBytes in pdfImages) {
             final base64Page = base64Encode(pageBytes);
             messagesContent.add({
@@ -122,19 +126,20 @@ class ChatGPTService implements AIService {
       return originalBytes; // إذا فشل الضغط، أرسل الصورة بأصلها
     }
   }
-
+//الدالة تحول ملف PDF إلى قائمة من الصور بصيغة JPEG
   Future<List<Uint8List>> _convertPdfToJpegPages(String pdfPath) async {
     const int maxPages = 10;
     final images = <Uint8List>[];
     final document = await PdfDocument.openFile(pdfPath);
-
+//تحديد عدد الصفحات التي سنعالجها
     try {
       final pageCount = document.pagesCount > maxPages
           ? maxPages
           : document.pagesCount;
-
+//المرور على كل صفحة PDF
       for (var i = 1; i <= pageCount; i++) {
         final page = await document.getPage(i);
+        //تحويل الصفحة إلى صورة
         try {
           final rendered = await page.render(
             width: page.width * 2,
@@ -142,7 +147,7 @@ class ChatGPTService implements AIService {
             format: PdfPageImageFormat.jpeg,
             backgroundColor: '#FFFFFF',
           );
-
+//استخراج البايتات وإضافتها للقائمة
           final bytes = rendered?.bytes;
           if (bytes != null && bytes.isNotEmpty) {
             images.add(bytes);

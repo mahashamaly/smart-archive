@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'pages/inbox_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
 
   // تهيئة قاعدة البيانات لمنصة ويندوز/ديسك توب
   if (!kIsWeb && (defaultTargetPlatform == TargetPlatform.windows || 

@@ -1401,4 +1401,77 @@ divorce_date
     }
   }
 
+  static String getPowerAIPrompt(String dataContent, String userQuestion) {
+    return """
+        # ROLE: PROFESSIONAL DATA SCIENTIST & BI EXPERT (POWER AI)
+        
+        # TASK: 
+        Analyze the provided DATA SOURCE and answer the USER'S QUESTION by generating a high-end Executive Dashboard in JSON format.
+        
+        # ANALYSIS STRATEGY:
+        1. Think step-by-step to identify the core trends and anomalies in the data.
+        2. Verify numerical data before generating series.
+        3. Ensure the executive summary is strategic and executive-level.
+        
+        # DATA SOURCE:
+        $dataContent
+        
+        # USER QUESTION: 
+        ($userQuestion)
+        
+        # RESPONSE CONSTRAINTS (STRICT):
+        1. **Strict JSON:** Return ONLY a valid JSON object. No preamble, no postamble.
+        2. **Language:** Arabic for all values (summary, titles, labels, descriptions, names).
+        3. **Chart Count:** Generate EXACTLY 3 charts.
+        4. **Recommendations Count:** Generate EXACTLY 3 proactive recommendations.
+        5. **Anomaly Count:** Generate EXACTLY 2-3 critical anomalies.
+        
+        # JSON SCHEMA:
+        {
+          "executiveSummary": "String (Arabic)",
+          "charts": [
+            {
+              "type": "bar" | "pie" | "line",
+              "title": "String (Arabic)",
+              "description": "String (Arabic)",
+              "labels": ["String", "String"],
+              "series": [{"name": "String (Arabic)", "data": [Number, Number]}]
+            }
+          ],
+          "criticalAnomalies": ["String (Arabic)"],
+          "proactiveRecommendations": ["String (Arabic)"]
+        }
+
+        # FEW-SHOT EXAMPLES:
+        
+        Example 1 (Activity):
+        Q: "ما هو القسم الأكثر انشغالاً؟"
+        R: {
+          "executiveSummary": "يبرز التحليل تصدر قسم تكنولوجيا المعلومات لإجمالي العمليات الإدارية...",
+          "charts": [
+            {"type": "pie", "title": "توزيع الانشغال", "labels": ["IT", "Legal", "General"], "series": [{"name": "النسبة", "data": [50, 30, 20]}]},
+            {"type": "bar", "title": "المخرجات الأسبوعية", "labels": ["Week 1", "Week 2"], "series": [{"name": "المهام", "data": [100, 120]}]},
+            {"type": "line", "title": "تطور الأداء", "labels": ["Jan", "Feb"], "series": [{"name": "الإنجاز", "data": [80, 95]}]}
+          ],
+          "criticalAnomalies": ["عنق زجاجة في المراجعات القانونية", "تراكم الطلبات في نهاية الأسبوع"],
+          "proactiveRecommendations": ["تعزيز القسم القانوني بموظفين مؤقتين", "أتمتة طلبات الدعم الفني الروتينية", "توزيع حصص العمل بشكل متوازن"]
+        }
+
+        Example 2 (Trends):
+        Q: "كيف كان أداء عام 2016؟"
+        R: {
+          "executiveSummary": "شهد عام 2016 نمواً مطرداً في حجم المراسلات الواردة بنسبة 15%...",
+          "charts": [
+            {"type": "line", "title": "منحنى المراسلات", "labels": ["Q1", "Q2", "Q3", "Q4"], "series": [{"name": "العدد", "data": [500, 600, 450, 700]}]},
+            {"type": "bar", "title": "أبرز الدوائر نشاطاً", "labels": ["المالية", "الهندسية"], "series": [{"name": "المراسلات", "data": [300, 250]}]},
+            {"type": "pie", "title": "حالة المعاملات", "labels": ["مكتملة", "قيد المعالجة"], "series": [{"name": "الحالة", "data": [70, 30]}]}
+          ],
+          "criticalAnomalies": ["انخفاض حاد في النشاط خلال الربع الثالث", "ارتفاع نسبة المعاملات المعلقة في الدائرة المالية"],
+          "proactiveRecommendations": ["تحليل أسباب هبوط الربع الثالث", "تفعيل التنبيهات الآلية للمعاملات المتأخرة", "تحديث أنظمة الأرشفة في الدائرة الهندسية"]
+        }
+
+        # FINAL EXECUTION:
+        Think step-by-step before generating the JSON. Start now.
+    """;
+  }
 }

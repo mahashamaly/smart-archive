@@ -4,12 +4,13 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'ai_service.dart';
 import 'ai_prompt_bank.dart';
 
 class GeminiService implements AIService {
   // 🔑 مفتاح API
-  final String _apiKey = 'AIzaSyCg50D6WtafKiyzyJoEfqlgeZSqgVY8AzA';
+  final String _apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
   /// الدالة الرئيسية لمعالجة المستند (طلب واحد يجمع التصنيف والاستخراج)
   @override
@@ -35,7 +36,7 @@ class GeminiService implements AIService {
     String? targetEmployeeId,
   }) async {
     final model = GenerativeModel(
-      model: 'gemini-2.5-flash',
+ model: 'gemini-2.5-flash',
       apiKey: _apiKey,
       generationConfig: GenerationConfig(
         temperature: 0.0, // 👈 0.0 يعني لا مجال للإبداع، فقط التزم بالنص حرفياً
@@ -128,7 +129,7 @@ class GeminiService implements AIService {
     String imagePath,
     List<dynamic> fields,
   ) async {
-    final model = GenerativeModel(model: 'gemini-2.5-flash', apiKey: _apiKey);
+    final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: _apiKey);
     final imageBytes = await File(imagePath).readAsBytes();
     final fieldDescriptions = fields
         .map((f) => "- ${f.id}: ${f.label}")

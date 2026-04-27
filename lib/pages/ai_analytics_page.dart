@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -13,47 +12,55 @@ class AIAnalyticsPage extends StatefulWidget {
 }
 
 class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
-  String? csvContent;
+  String? fetchedData;
   String? fileName;
   bool isLoading = false;
   final TextEditingController _queryController = TextEditingController();
   final AIAnalyzerService _aiService = AIAnalyzerService();
-  String aiResponse = "قم بتحميل ملف المراسلات (CSV) ثم اسأل الذكاء الاصطناعي أي سؤال حوله.";
-  Map<String, double>? chartData;
+  String aiResponse = "قم بجلب البيانات من قاعدة بيانات البلدية (Oracle) للبدء في التحليل الذكي.";
+  Map<String, dynamic>? powerAiData; 
   String currentChartType = "pie";
-//تحميل الملف csv
-  Future<void> pickFile() async {
+
+  //  جلب البيانات الحقيقية من خادم البلدية 
+  Future<void> fetchFromOracle() async {
+    setState(() {
+      fileName = "جاري جلب البيانات من البلدية...";
+      aiResponse = "⏳ جاري الاتصال بخادم البلدية (Oracle)...";
+      isLoading = true;
+    });
+
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['csv'],
-      );
-
-      if (result != null) {
-        final bytes = result.files.single.bytes;
+      final url = Uri.parse('http://localhost:3000/api/apps_2016');
+      final response = await http.get(url);
+      
+      if (response.statusCode == 200) {
+        final parsed = json.decode(response.body);
+        final dataStr = json.encode(parsed['data']); 
         
-        if (bytes != null) {
-          csvContent = utf8.decode(bytes);
-        } else {
-          final file = File(result.files.single.path!);
-          csvContent = await file.readAsString();
-        }
-
         setState(() {
-          fileName = result.files.single.name;
-          aiResponse = "✅ تم تحميل ملف ($fileName) بنجاح. الآن اسأل الذكاء الاصطناعي عن البيانات.";
-          chartData = null;
+          isLoading = false;
+          fetchedData = dataStr; 
+          fileName = "بيانات البلدية الحقيقية (Oracle)";
+          aiResponse = "✅ تم استيراد (${parsed['count']}) سجل من البلدية بنجاح! الذكاء الاصطناعي جاهز لتحليلها وبناء المخططات.";
+          powerAiData = null;
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+          aiResponse = "❌ فشل الاتصال بالخادم: الكود ${response.statusCode}";
         });
       }
     } catch (e) {
       setState(() {
-        aiResponse = "❌ حدث خطأ أثناء تحميل الملف: $e";
+        isLoading = false;
+        aiResponse = "❌ حدث خطأ في الاتصال بالخادم الوسيط: يرجى التأكد من تشغيل node server.js\n$e";
       });
     }
   }
+
 //التحقق من وجود الملف والسؤال
   Future<void> sendQuestion() async {
-    if (csvContent == null || _queryController.text.isEmpty) {
+    if (fetchedData == null || _queryController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("برجاء تحميل الملف وكتابة السؤال أولاً."))
       );
@@ -63,11 +70,11 @@ class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
     setState(() { 
       isLoading = true; 
       aiResponse = "⏳ جاري تحليل البيانات ورسم المخططات البيانية...";
-      chartData = null;
+      powerAiData = null;
     });
 
     try {
-      final fullResponse = await _aiService.askAIAboutData(csvContent!, _queryController.text);
+      final fullResponse = await _aiService.askAIAboutData(fetchedData!, _queryController.text);
       _parseResponse(fullResponse);
     } catch (e) {
       setState(() {
@@ -79,34 +86,62 @@ class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
 
   void _parseResponse(String fullResponse) {
     String cleanResponse = fullResponse;
-    Map<String, double>? extractedData;
-    String extractedType = "pie";
+    Map<String, dynamic> combinedData = {
+      "executiveSummary": null,
+      "charts": [],
+      "criticalAnomalies": [],
+      "proactiveRecommendations": []
+    };
 
     try {
-      final jsonRegex = RegExp(r'```json\s*(\{[\s\S]*?\}|\[[\s\S]*?\])\s*```');
-      final match = jsonRegex.firstMatch(fullResponse);
-      
-      if (match != null) {
-        final jsonStr = match.group(1);
-        if (jsonStr != null) {
-          final jsonData = json.decode(jsonStr);
-          if (jsonData['data'] != null) {
-            extractedData = (jsonData['data'] as Map).map(
-              (key, value) => MapEntry(key.toString(), (value as num).toDouble())
-            );
-            extractedType = jsonData['chart_type'] ?? "pie";
-            cleanResponse = fullResponse.replaceFirst(match.group(0)!, '').trim();
+      bool foundAnyData = false;
+      int startIndex = fullResponse.indexOf('{');
+      int endIndex = fullResponse.lastIndexOf('}');
+
+      if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+        String jsonStr = fullResponse.substring(startIndex, endIndex + 1);
+        try {
+          final Map<String, dynamic> jsonData = json.decode(jsonStr);
+          foundAnyData = true;
+
+          // دمج البيانات المستخرجة في الكائن الموحد
+          if (jsonData.containsKey('executiveSummary')) {
+            combinedData['executiveSummary'] = jsonData['executiveSummary'];
           }
+          if (jsonData.containsKey('charts')) {
+            combinedData['charts'].addAll(jsonData['charts']);
+          }
+          if (jsonData.containsKey('criticalAnomalies')) {
+            combinedData['criticalAnomalies'].addAll(jsonData['criticalAnomalies']);
+          }
+          if (jsonData.containsKey('proactiveRecommendations')) {
+            combinedData['proactiveRecommendations'].addAll(jsonData['proactiveRecommendations']);
+          }
+        } catch (e) {
+             debugPrint("Error parsing extracted JSON string: $e");
         }
       }
+
+      // 2. تنظيف النص المعروض من كافة كتل الكود والعلامات التقنية
+      cleanResponse = fullResponse
+          .replaceAll(RegExp(r'```json[\s\S]*?```'), '')
+          .replaceAll(RegExp(r'\{[\s\S]*?\}'), '') // أحياناً قد يزيل أجزاء فقط، لكن بما أننا نستخرج ما بين قوسين، لا بأس
+          .replaceAll(RegExp(r'#{1,6}\s+'), '') // تنظيف عناوين الماركدون
+          .trim();
+
+      if (foundAnyData) {
+        setState(() {
+          powerAiData = combinedData;
+        });
+      }
     } catch (e) {
-      debugPrint("Error parsing chart data: $e");
+      debugPrint("Error parsing Power AI data: $e");
     }
 
     setState(() {
-      aiResponse = cleanResponse.isEmpty ? "تم تحليل البيانات بنجاح." : cleanResponse;
-      chartData = extractedData;
-      currentChartType = extractedType;
+      aiResponse = cleanResponse.isEmpty || cleanResponse.length < 5 
+          ? (powerAiData != null ? "تم تحليل البيانات بنجاح." : "لم يتم العثور على تحليل.") 
+          : cleanResponse;
       isLoading = false;
     });
   }
@@ -153,16 +188,18 @@ class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           SizedBox(height: 15),
-          ElevatedButton.icon(
-            onPressed: pickFile,
-            icon: Icon(Icons.file_upload_outlined, color: Colors.white,),
-            label: Text("تحميل ملف المراسلات (CSV)", style: TextStyle(color: Colors.white)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blueAccent,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            ),
-          ),
+              // الزر المباشر للربط مع قاعدة البيانات
+              ElevatedButton.icon(
+                onPressed: fetchFromOracle,
+                icon: Icon(Icons.cloud_download, color: Colors.white),
+                label: Text("استيراد البيانات من البلدية (Oracle)", style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green[600],
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  elevation: 5,
+                ),
+              ),
         ],
       ),
     ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.1);
@@ -241,6 +278,7 @@ class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
       }).toList(),
     );
   }
+  //منطقة عرض النتائج
 
   Widget _buildResponseArea() {
     return Stack(
@@ -261,19 +299,21 @@ class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
                 if (isLoading)
                   _buildLoadingView()
                 else ...[
-                  if (chartData != null) _buildChartViewer(),
-                  Text(
-                    aiResponse,
-                    style: TextStyle(fontSize: 16, height: 1.6, color: Colors.black87),
-                    textAlign: TextAlign.right,
-                    textDirection: TextDirection.rtl,
-                  ),
+                  if (powerAiData != null) _buildPowerAIView(),
+                  if (powerAiData == null)
+                    Text(
+                      aiResponse,
+                      style: TextStyle(fontSize: 16, height: 1.6, color: Colors.black87),
+                      textAlign: TextAlign.right,
+                      textDirection: TextDirection.rtl,
+                    ),
                 ],
               ],
             ),
           ),
         ),
-        if (!isLoading && csvContent != null && aiResponse.length > 30)
+        //زر النسخ (Copy Button)
+        if (!isLoading && fetchedData != null && aiResponse.length > 30)
           Positioned(
             left: 10,
             top: 10,
@@ -306,8 +346,91 @@ class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
     );
   }
 
-  Widget _buildChartViewer() {
-    final total = chartData!.values.isNotEmpty ? chartData!.values.reduce((a, b) => a + b) : 0;
+  Widget _buildPowerAIView() {
+    if (powerAiData == null) return Container();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        // 1. الملخص التنفيذي - Executive Summary
+        if (powerAiData!['executiveSummary'] != null)
+          _buildExecutiveSummary(powerAiData!['executiveSummary']),
+
+        // 2. الرسوم البيانية - Dynamic Charts
+        if (powerAiData!['charts'] != null)
+          ... (powerAiData!['charts'] as List).map((chart) => _buildPowerChart(chart)).toList(),
+
+        // 3. التنبيهات الذكية - Critical Anomalies
+        if (powerAiData!['criticalAnomalies'] != null && (powerAiData!['criticalAnomalies'] as List).isNotEmpty)
+          _buildAlertsSection("تنبيهات ذكية وتحليل الشذوذ", powerAiData!['criticalAnomalies'], Colors.amber),
+
+        // 4. التوصيات الاستباقية - Proactive Recommendations
+        if (powerAiData!['proactiveRecommendations'] != null && (powerAiData!['proactiveRecommendations'] as List).isNotEmpty)
+          _buildAlertsSection("توصيات استباقية (Power AI)", powerAiData!['proactiveRecommendations'], Colors.green),
+
+        SizedBox(height: 20),
+        // عرض الرد النصي الأصلي إذا وجد
+        if (aiResponse.isNotEmpty && aiResponse != "تم تحليل البيانات بنجاح.")
+          Container(
+            padding: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.03),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.blue.withOpacity(0.1)),
+            ),
+            child: Text(
+              aiResponse,
+              style: TextStyle(fontSize: 15, height: 1.6, color: Colors.blueGrey[800]),
+              textAlign: TextAlign.right,
+              textDirection: TextDirection.rtl,
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildExecutiveSummary(String summary) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(bottom: 20),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blueAccent, Colors.blue[800]!],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [BoxShadow(color: Colors.blueAccent.withOpacity(0.3), blurRadius: 15, offset: Offset(0, 8))],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text("الملخص التنفيذي الذكي", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
+              SizedBox(width: 10),
+              Icon(Icons.auto_awesome, color: Colors.amberAccent, size: 24),
+            ],
+          ),
+          SizedBox(height: 12),
+          Text(
+            summary,
+            style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 15, height: 1.6),
+            textAlign: TextAlign.right,
+            textDirection: TextDirection.rtl,
+          ),
+        ],
+      ),
+    ).animate().fadeIn().slideY(begin: 0.2);
+  }
+
+  Widget _buildPowerChart(Map<String, dynamic> chart) {
+    String type = chart['type'] ?? 'bar';
+    String title = chart['title'] ?? 'تحليل البيانات';
+    List<String> labels = List<String>.from(chart['labels'] ?? []);
+    List<dynamic> series = chart['series'] ?? [];
 
     return Container(
       margin: EdgeInsets.only(bottom: 25),
@@ -315,164 +438,37 @@ class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blueAccent.withOpacity(0.08),
-            blurRadius: 20,
-            offset: Offset(0, 10),
-          )
-        ],
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 20, offset: Offset(0, 10))],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            textDirection: TextDirection.rtl,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                   Text(
-                    "تحليل بياني ذكي",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.blueGrey[900]),
-                  ),
-                   Text(
-                    "المجموع الإجمالي: ${total.toInt()} سجلات",
-                    style: TextStyle(fontSize: 12, color: Colors.blueAccent, fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.bar_chart_rounded, size: 16, color: Colors.blueAccent),
-                    SizedBox(width: 4),
-                    Text(
-                      currentChartType == "bar" ? "مخطط أعمدة" : "مخطط دائري",
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.blueAccent),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 30),
-          _buildQuickStatsCards(),
-          SizedBox(height: 25),
-          SizedBox(
-            child: currentChartType == "bar" ? _buildBarChart() : SizedBox(height: 220, child: _buildPieChart()),
-          ),
-          if (currentChartType == "pie") ...[
-            SizedBox(height: 30),
-            _buildChartLegend(total.toDouble()),
-          ],
+          Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Colors.blueGrey[900])),
+          if (chart['description'] != null)
+             Padding(
+               padding: const EdgeInsets.only(top: 4, bottom: 15),
+               child: Text(chart['description'], style: TextStyle(fontSize: 12, color: Colors.grey[600]), textAlign: TextAlign.right),
+             ),
+          SizedBox(height: 10),
+          if (type == 'bar') _buildAdvancedBarChart(labels, series),
+          if (type == 'pie') _buildAdvancedPieChart(labels, series),
+          if (type == 'line') _buildAdvancedLineChart(labels, series),
         ],
       ),
-    ).animate().fadeIn(duration: 500.ms).scale(begin: Offset(0.95, 0.95));
+    ).animate().fadeIn().scale(begin: Offset(0.9, 0.9));
   }
 
-  Widget _buildQuickStatsCards() {
-    if (chartData == null || chartData!.isEmpty) return Container();
-    
-    final sortedData = chartData!.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
-    final highest = sortedData.first;
-    final lowest = sortedData.last;
+  Widget _buildAdvancedBarChart(List<String> labels, List<dynamic> series) {
+    if (series.isEmpty) return Container();
+    final data = series[0]['data'] as List;
+    final double maxVal = data.map((e) => (e as num).toDouble()).reduce((a, b) => a > b ? a : b);
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      reverse: true,
-      child: Row(
-        children: [
-          _buildMiniStatCard(
-            "الأكثر نشاطاً",
-            highest.key,
-            Icons.trending_up_rounded,
-            Colors.green,
-          ),
-          SizedBox(width: 12),
-          _buildMiniStatCard(
-            "الأقل نشاطاً",
-            lowest.key,
-            Icons.trending_down_rounded,
-            Colors.orange,
-          ),
-          SizedBox(width: 12),
-          _buildMiniStatCard(
-            "عدد الفئات",
-            "${chartData!.length} دوائر",
-            Icons.grid_view_rounded,
-            Colors.blueAccent,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMiniStatCard(String title, String value, IconData icon, Color color) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: color.withOpacity(0.1)),
-      ),
-      child: Row(
-        textDirection: TextDirection.rtl,
-        children: [
-          Container(
-            padding: EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, size: 16, color: color),
-          ),
-          SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                title,
-                style: TextStyle(fontSize: 10, color: Colors.grey[600], fontWeight: FontWeight.w600),
-              ),
-              Text(
-                value,
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.blueGrey[900]),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBarChart() {
-    final maxVal = chartData!.values.reduce((a, b) => a > b ? a : b);
-    final colors = [
-      [Color(0xFF2196F3), Color(0xFF64B5F6)],
-      [Color(0xFF009688), Color(0xFF4DB6AC)],
-      [Color(0xFF673AB7), Color(0xFF9575CD)],
-      [Color(0xFFFF9800), Color(0xFFFFB74D)],
-      [Color(0xFFE91E63), Color(0xFFF06292)],
-    ];
-
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: chartData!.length,
-      itemBuilder: (context, index) {
-        final entry = chartData!.entries.elementAt(index);
-        final gradient = colors[index % colors.length];
-        final ratio = entry.value / maxVal;
-
+    return Column(
+      children: List.generate(labels.length, (index) {
+        final val = (data[index] as num).toDouble();
+        final ratio = maxVal > 0 ? val / maxVal : 0.0;
         return Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
+          padding: const EdgeInsets.only(bottom: 12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -480,42 +476,21 @@ class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 textDirection: TextDirection.rtl,
                 children: [
-                  Text(
-                    entry.key,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.blueGrey[800]),
-                  ),
-                  Text(
-                    "${entry.value.toInt()} سجل",
-                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12, color: gradient[0]),
-                  ),
+                  Text(labels[index], style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                  Text("${val.toInt()}", style: TextStyle(fontSize: 12, color: Colors.blueAccent, fontWeight: FontWeight.bold)),
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 6),
               Stack(
                 children: [
-                  Container(
-                    height: 12,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
+                  Container(height: 8, width: double.infinity, decoration: BoxDecoration(color: Colors.grey[100], borderRadius: BorderRadius.circular(5))),
                   AnimatedContainer(
-                    duration: Duration(milliseconds: 800 + (index * 200)),
-                    curve: Curves.easeOutQuart,
-                    height: 12,
-                    width: (MediaQuery.of(context).size.width - 80) * ratio,
+                    duration: 1000.ms,
+                    height: 8,
+                    width: (MediaQuery.of(context).size.width - 100) * ratio,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: gradient),
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: gradient[0].withOpacity(0.3),
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        )
-                      ],
+                      gradient: LinearGradient(colors: [Colors.blueAccent, Colors.blue[300]!]),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
                 ],
@@ -523,139 +498,238 @@ class _AIAnalyticsPageState extends State<AIAnalyticsPage> {
             ],
           ),
         );
-      },
+      }),
     );
   }
 
-  Widget _buildPieChart() {
-    final total = chartData!.values.reduce((a, b) => a + b);
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        PieChart(
-          PieChartData(
-            sectionsSpace: 2,
-            centerSpaceRadius: 65,
-            sections: _generatePieSections(),
-            pieTouchData: PieTouchData(enabled: true),
+  Widget _buildAdvancedPieChart(List<String> labels, List<dynamic> series) {
+     if (series.isEmpty) return Container();
+     final data = series[0]['data'] as List;
+     final colors = [Colors.blue, Colors.cyan, Colors.indigo, Colors.orange, Colors.pink];
+
+     return Column(
+       children: [
+         SizedBox(
+           height: 200,
+           child: PieChart(
+             PieChartData(
+               sections: List.generate(labels.length, (i) => PieChartSectionData(
+                 value: (data[i] as num).toDouble(),
+                 color: colors[i % colors.length],
+                 radius: 40,
+                 title: "",
+               )),
+             ),
+           ),
+         ),
+         SizedBox(height: 20),
+         Wrap(
+           spacing: 15,
+           runSpacing: 10,
+           alignment: WrapAlignment.end,
+           children: List.generate(labels.length, (i) => Row(
+             mainAxisSize: MainAxisSize.min,
+             textDirection: TextDirection.rtl,
+             children: [
+               Container(width: 10, height: 10, decoration: BoxDecoration(color: colors[i % colors.length], shape: BoxShape.circle)),
+               SizedBox(width: 5),
+               Text(labels[i], style: TextStyle(fontSize: 11)),
+             ],
+           )),
+         )
+       ],
+     );
+  }
+
+  Widget _buildAdvancedLineChart(List<String> labels, List<dynamic> series) {
+    if (series.isEmpty || labels.isEmpty) {
+      return Container(
+        height: 150,
+        child: Center(child: Text("لا توجد بيانات كافية للرسم", style: TextStyle(color: Colors.grey))),
+      );
+    }
+
+    // ألوان المسارات
+    final List<Color> lineColors = [
+      Colors.blueAccent,
+      Colors.orange,
+      Colors.green,
+      Colors.pink,
+      Colors.purple,
+    ];
+
+    // بناء LineBarsData لكل series
+    final List<LineChartBarData> lineBars = [];
+    for (int s = 0; s < series.length; s++) {
+      final rawData = series[s]['data'] as List? ?? [];
+      final color = lineColors[s % lineColors.length];
+      final spots = <FlSpot>[];
+      for (int i = 0; i < rawData.length && i < labels.length; i++) {
+        spots.add(FlSpot(i.toDouble(), (rawData[i] as num).toDouble()));
+      }
+      lineBars.add(LineChartBarData(
+        spots: spots,
+        isCurved: true,
+        color: color,
+        barWidth: 3,
+        isStrokeCapRound: true,
+        dotData: FlDotData(
+          show: true,
+          getDotPainter: (spot, percent, barData, index) => FlDotCirclePainter(
+            radius: 4,
+            color: Colors.white,
+            strokeWidth: 2,
+            strokeColor: color,
           ),
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "الإجمالي",
-              style: TextStyle(fontSize: 12, color: Colors.grey[600], fontWeight: FontWeight.w600),
-            ),
-            Text(
-              "${total.toInt()}",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blueAccent[700]),
-            ),
-          ],
+        belowBarData: BarAreaData(
+          show: true,
+          color: color.withOpacity(0.08),
         ),
+      ));
+    }
+
+    // حساب القيمة القصوى لمحور Y
+    double maxY = 0;
+    for (final bar in lineBars) {
+      for (final spot in bar.spots) {
+        if (spot.y > maxY) maxY = spot.y;
+      }
+    }
+    final double yInterval = maxY > 0 ? (maxY / 5).ceilToDouble() : 10;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        SizedBox(
+          height: 220,
+          child: LineChart(
+            LineChartData(
+              gridData: FlGridData(
+                show: true,
+                drawVerticalLine: false,
+                horizontalInterval: yInterval,
+                getDrawingHorizontalLine: (value) => FlLine(
+                  color: Colors.grey.withOpacity(0.15),
+                  strokeWidth: 1,
+                ),
+              ),
+              titlesData: FlTitlesData(
+                rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 40,
+                    interval: yInterval,
+                    getTitlesWidget: (value, meta) => Text(
+                      value.toInt().toString(),
+                      style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                    ),
+                  ),
+                ),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 32,
+                    interval: 1,
+                    getTitlesWidget: (value, meta) {
+                      final idx = value.toInt();
+                      if (idx < 0 || idx >= labels.length) return const SizedBox();
+                      // عرض تسميات مختصرة إذا كانت كثيرة
+                      final label = labels.length > 8
+                          ? labels[idx].replaceAll(RegExp(r'[^\d]+'), '') // أرقام فقط
+                          : labels[idx];
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 6),
+                        child: Text(
+                          label,
+                          style: TextStyle(fontSize: 10, color: Colors.grey[700]),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              borderData: FlBorderData(show: false),
+              lineBarsData: lineBars,
+              lineTouchData: LineTouchData(
+                touchTooltipData: LineTouchTooltipData(
+                  getTooltipColor: (_) => Colors.blueGrey[800]!,
+                  getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
+                    final label = spot.x.toInt() < labels.length ? labels[spot.x.toInt()] : '';
+                    return LineTooltipItem(
+                      '$label\n${spot.y.toInt()}',
+                      const TextStyle(color: Colors.white, fontSize: 12),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+          ),
+        ),
+        // مفتاح الألوان (Legend)
+        if (series.length > 1) ...[
+          SizedBox(height: 12),
+          Wrap(
+            spacing: 16,
+            runSpacing: 8,
+            alignment: WrapAlignment.end,
+            children: List.generate(series.length, (i) {
+              final name = series[i]['name']?.toString() ?? 'مسار ${i + 1}';
+              final color = lineColors[i % lineColors.length];
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                textDirection: TextDirection.rtl,
+                children: [
+                  Container(
+                    width: 24, height: 3,
+                    decoration: BoxDecoration(
+                      color: color,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Text(name, style: TextStyle(fontSize: 11, color: Colors.blueGrey[700])),
+                ],
+              );
+            }),
+          ),
+        ],
       ],
     );
   }
 
-  List<PieChartSectionData> _generatePieSections() {
-    final colors = [
-      Color(0xFF2196F3), // Blue
-      Color(0xFF00BCD4), // Cyan
-      Color(0xFF009688), // Teal
-      Color(0xFF673AB7), // Deep Purple
-      Color(0xFFFF9800), // Orange
-    ];
-
-    return chartData!.entries.indexed.map((entry) {
-      final index = entry.$1;
-      final e = entry.$2;
-      final color = colors[index % colors.length];
-      
-      return PieChartSectionData(
-        color: color,
-        value: e.value,
-        title: "", // Title hidden for cleaner look, value is in center/legend
-        radius: 20,
-        showTitle: false,
-      );
-    }).toList();
-  }
-
-  Widget _buildBadge(int index, Color color) {
+  Widget _buildAlertsSection(String title, List<dynamic> alerts, Color color) {
     return Container(
-      padding: EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
-        border: Border.all(color: color, width: 2),
+      margin: EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10, bottom: 10),
+            child: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: color.withOpacity(0.8))),
+          ),
+          ...alerts.map((alert) => Container(
+            margin: EdgeInsets.only(bottom: 8),
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: color.withOpacity(0.1)),
+            ),
+            child: Row(
+              textDirection: TextDirection.rtl,
+              children: [
+                Icon(color == Colors.amber ? Icons.warning_amber_rounded : Icons.lightbulb_outline, color: color, size: 20),
+                SizedBox(width: 12),
+                Expanded(child: Text(alert.toString(), style: TextStyle(fontSize: 13, height: 1.5), textAlign: TextAlign.right)),
+              ],
+            ),
+          )).toList(),
+        ],
       ),
-      child: Icon(Icons.circle, color: color, size: 8),
-    );
+    ).animate().fadeIn().slideX(begin: 0.1);
   }
-
-  Widget _buildChartLegend(double total) {
-    final colors = [
-      Color(0xFF2196F3),
-      Color(0xFF00BCD4),
-      Color(0xFF009688),
-      Color(0xFF673AB7),
-      Color(0xFFFF9800),
-    ];
-
-    return Column(
-      children: chartData!.entries.indexed.map((entry) {
-        final index = entry.$1;
-        final e = entry.$2;
-        final color = colors[index % colors.length];
-        final percentage = total > 0 ? (e.value / total * 100).toStringAsFixed(1) : "0";
-        
-        return Container(
-          margin: EdgeInsets.only(bottom: 12),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: Colors.grey[50],
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: Colors.grey[200]!),
-          ),
-          child: Row(
-            textDirection: TextDirection.rtl,
-            children: [
-              Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                  boxShadow: [BoxShadow(color: color.withOpacity(0.3), blurRadius: 4, spreadRadius: 1)]
-                ),
-              ),
-              SizedBox(width: 15),
-              Expanded(
-                child: Text(
-                  e.key,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.blueGrey[800]),
-                  textAlign: TextAlign.right,
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    "${e.value.toInt()} مراسلة",
-                    style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "$percentage%",
-                    style: TextStyle(fontSize: 11, color: Colors.grey[500], fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      }).toList(),
-    );
-  }
-
 }
